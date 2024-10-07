@@ -30,21 +30,19 @@ class TaskController extends Controller
         ]);
 
         task::create($request->all());
+        //
         return redirect()->route('tasks.index')->with('success', 'Task created successfully.');
     }
 
 
-    public function show(task $task) 
-    {
-
-    }
+    public function show(task $task) {}
 
     public function edit(Task $task): View
     {
         return view('edit', ['task' => $task]);
     }
 
-    public function update(Request $request, task $task): RedirectResponse 
+    public function update(Request $request, task $task): RedirectResponse
     {
         $request->validate([
             'title' => 'required|max:255',

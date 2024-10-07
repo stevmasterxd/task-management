@@ -7,7 +7,7 @@
             <h2 class="text-white">Task Management</h2>
         </div>
         <div>
-            <a href="" class="btn btn-primary">Create Task</a>
+            <a href="{{route('tasks.create') }}" class="btn btn-primary">Create Task</a>
         </div>
     </div>
 
