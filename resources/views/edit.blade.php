@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-12">
         <div>
-            <h2>Create Task</h2>
+            <h2>Edit Task</h2>
         </div>
         <div>
             <a href="{{route('tasks.index')}}" class="btn btn-primary">Back</a>
@@ -21,25 +21,26 @@
         </ul>
     </div>
     @endif
-    <form action="{{ route('tasks.store') }}" method="POST">
+    <form action="{{ route('tasks.update', $task) }}" method="POST">
         @csrf
+        @method('PUT')
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
                 <div class="form-group">
                     <strong>Task:</strong>
-                    <input type="text" name="title" class="form-control" placeholder="Task">
+                    <input type="text" name="title" class="form-control" placeholder="Task" value="{{$task->title }}">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
                 <div class="form-group">
                     <strong>Description:</strong>
-                    <textarea class="form-control" style="height:150px" name="description" placeholder="Description..."></textarea>
+                    <textarea class="form-control" style="height:150px" name="description" placeholder="Description...">{{ $task->description }}</textarea>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 mt-2">
                 <div class="form-group">
                     <strong>Deadline:</strong>
-                    <input type="date" name="due_date" class="form-control" id="">
+                    <input type="date" name="due_date" class="form-control" value={{ $task->due_date }} id="">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 mt-2">
@@ -47,14 +48,14 @@
                     <strong>Status (initial):</strong>
                     <select name="status" class="form-select" id="">
                         <option value="">-- Choose the status --</option>
-                        <option value="pending">pending</option>
-                        <option value="in progress">in progress</option>
-                        <option value="completed">completed</option>
+                        <option value="pending" @selected("pending" == $task->status) >pending</option>
+                        <option value="in progress"@selected("in progress" == $task->status)>in progress</option>
+                        <option value="completed"@selected("completed" == $task->status)>completed</option>
                     </select>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center mt-2">
-                <button type="submit" class="btn btn-primary">create</button>
+                <button type="submit" class="btn btn-primary">Update</button>
             </div>
         </div>
     </form>

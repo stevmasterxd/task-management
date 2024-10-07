@@ -13,7 +13,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description')->nullable();
-            $table->dateTime('due_date')->nullable();
+            $table->dateTime('due_date');
             $table->enum('status', ['pending', 'in progress', 'completed'])->default('pending');
             $table->timestamps();
         });

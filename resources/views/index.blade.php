@@ -11,6 +11,12 @@
         </div>
     </div>
 
+    @if (Session::get('success'))
+    <div class="alert alert-success mt-2">
+        <strong>{{ session::get('success') }}<br>
+    </div>
+    @endif
+
     <div class="col-12 mt-4">
         <table class="table table-bordered text-white">
             <tr class="text-secondary">
@@ -20,24 +26,30 @@
                 <th>State</th>
                 <th>Action</th>
             </tr>
+            @foreach ($tasks as $task)
             <tr>
-                <td class="fw-bold">Estudiar Laravel</td>
-                <td>Ver video: tu primer CRUD</td>
+                <td class="fw-bold">{{ $task->title }}</td>
+                <td>{{ $task->description }}</td>
                 <td>
-                    03/03/24
+                    {{ $task->due_date }}
                 </td>
                 <td>
-                    <span class="badge bg-warning fs-6">earring</span>
+                    <span class="badge bg-warning fs-6">{{ $task->status }}</span>
                 </td>
                 <td>
                     <a href="" class="btn btn-warning">edit</a>
 
-                    <form action="" method="post" class="d-inline">
+                    <form action="{{ route('tasks.destroy', $task) }}" method="POST" class="d-inline">
+                        @csrf
+                        @method('DELETE')
                         <button type="submit" class="btn btn-danger">eliminate</button>
                     </form>
                 </td>
             </tr>
+
+            @endforeach
         </table>
+        {{ $tasks->links() }}
     </div>
 </div>
 @endsection
