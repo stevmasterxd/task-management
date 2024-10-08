@@ -22,7 +22,7 @@
             <tr class="text-secondary">
                 <th>Task</th>
                 <th>Description</th>
-                <th>date</th>
+                <th>Date Created</th>
                 <th>State</th>
                 <th>Action</th>
             </tr>
@@ -31,7 +31,7 @@
                 <td class="fw-bold">{{ $task->title }}</td>
                 <td>{{ $task->description }}</td>
                 <td>
-                    {{ $task->due_date }}
+                    {{ $task->created_at->format('Y-m-d H:i:s') }} 
                 </td>
                 <td>
                     <span class="badge bg-warning fs-6">{{ $task->status }}</span>
@@ -46,7 +46,6 @@
                     </form>
                 </td>
             </tr>
-
             @endforeach
         </table>
         {{ $tasks->links() }}
