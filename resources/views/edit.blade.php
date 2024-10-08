@@ -10,7 +10,7 @@
             <a href="{{route('tasks.index')}}" class="btn btn-primary">Back</a>
         </div>
     </div>
-   
+
     @if ($errors->any())
     <div class="alert alert-danger mt-2">
         <strong>¡An error occurred while saving the task!</strong> Error<br><br>
@@ -48,9 +48,9 @@
                     <strong>Status (initial):</strong>
                     <select name="status" class="form-select" id="">
                         <option value="">-- Choose the status --</option>
-                        <option value="pending" @selected("pending" == $task->status) >pending</option>
-                        <option value="in progress"@selected("in progress" == $task->status)>in progress</option>
-                        <option value="completed"@selected("completed" == $task->status)>completed</option>
+                        <option value="pending" @selected("pending"==$task->status) >pending</option>
+                        <option value="in progress" @selected("in progress"==$task->status)>in progress</option>
+                        <option value="completed" @selected("completed"==$task->status)>completed</option>
                     </select>
                 </div>
             </div>
@@ -60,4 +60,28 @@
         </div>
     </form>
 </div>
+@endsection
+
+@section('content')
+
+<h1>{{ $task->title }}</h1>
+<p>{{ $task->description }}</p>
+<p>{{ $task->due_date }}</p>
+
+<h2>comments</h2>
+<ul>
+    @foreach($task->comments as $comment)
+    <li>{{ $comment->content }} - <small>{{ $comment->created_at }}</small></li>
+    @endforeach
+</ul>
+
+<form action="{{ route('tasks.storeComment', $task->id) }}" method="POST">
+    @csrf
+    <div>
+        <label for="content">New Comment:</label>
+        <textarea name="content" id="content" required></textarea>
+    </div>
+    <button type="submit">Add Comment</button>
+</form>
+
 @endsection

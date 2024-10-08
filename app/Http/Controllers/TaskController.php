@@ -33,6 +33,18 @@ class TaskController extends Controller
         //
         return redirect()->route('tasks.index')->with('success', 'Task created successfully.');
     }
+    public function storeComment(Task $task, Request $request): RedirectResponse
+    {
+        $request->validate([
+            'content' => 'required',
+        ]);
+
+        $task->comments()->create([
+            'content' => $request->input('content'),
+        ]);
+
+        return redirect()->route('tasks.show', $task)->with('success', 'Comment added successfully.');
+    }
 
 
     public function show(task $task) {}

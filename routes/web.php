@@ -17,3 +17,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 route::resource('tasks', TaskController::class);
+Route::post('tasks/{task}/comments', [TaskController::class, 'storeComment'])->name('tasks.storeComment');
